@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Shooters</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Galaxy Shooters</h1>
+            <div class="score-board">
+                <div class="score">Score: <span id="score">0</span></div>
+                <div class="lives">Lives: <span id="lives">3</span></div>
+                <div class="level">Level: <span id="level">1</span></div>
+            </div>
+        </div>
+        
+        <div class="game-area">
+            <div id="game-canvas">
+                <!-- Game elements will be dynamically added here -->
+            </div>
+            
+            <div class="game-overlay" id="game-overlay">
+                <div class="overlay-content">
+                    <h2 id="overlay-title">Galaxy Shooters</h2>
+                    <p id="overlay-message">Use WASD or Arrow Keys to move, Space to shoot!</p>
+                    <button id="start-button">Start Game</button>
+                    <button id="restart-button" style="display: none;">Play Again</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <p>Controls: WASD / Arrow Keys to move, Space to shoot</p>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html> 

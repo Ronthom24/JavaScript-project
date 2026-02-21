@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.game-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-bottom: 2px solid #00ffff;
+    text-align: center;
+}
+
+.game-header h1 {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+.score-board {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.2em;
+}
+
+.score-board > div {
+    background: rgba(0, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #00ffff;
+}
+
+.game-area {
+    flex: 1;
+    position: relative;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0c0c0c 100%);
+    overflow: hidden;
+    min-height: 80vh;
+}
+
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.3"/></svg>') repeat;
+    background-size: 100px 100px;
+}
+
+.player {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #00ffff, #0080ff);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 15px #00ffff;
+    transition: all 0.1s ease;
+}
+
+.enemy {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, #ff4444, #cc0000);
+    clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    border: 2px solid #ff4444;
+    box-shadow: 0 0 10px #ff4444;
+}
+
+.bullet {
+    position: absolute;
+    width: 4px;
+    height: 12px;
+    background: #ffff00;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #ffff00;
+}
+
+.enemy-bullet {
+    position: absolute;
+    width: 4px;
+    height: 12px;
+    background: #ff4444;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #ff4444;
+}
+
+.explosion {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #ffff00, #ff8800, #ff4444);
+    border-radius: 50%;
+    animation: explode 0.5s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    text-align: center;
+    background: rgba(26, 26, 46, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+.overlay-content h2 {
+    color: #00ffff;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px #00ffff;
+}
+
+.overlay-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #cccccc;
+}
+
+button {
+    background: linear-gradient(45deg, #00ffff, #0080ff);
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.controls {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px;
+    text-align: center;
+    border-top: 2px solid #00ffff;
+    font-size: 0.9em;
+    color: #cccccc;
+}
+
+/* Power-up styles */
+.powerup {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid;
+    animation: pulse 1s infinite alternate;
+}
+
+.powerup.life {
+    background: linear-gradient(45deg, #00ff00, #008000);
+    border-color: #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.powerup.destroy {
+    background: linear-gradient(45deg, #ff4444, #cc0000);
+    border-color: #ff4444;
+    box-shadow: 0 0 15px #ff4444;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .game-header h1 {
+        font-size: 2em;
+    }
+    
+    .score-board {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .overlay-content {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .overlay-content h2 {
+        font-size: 2em;
+    }
+} 
